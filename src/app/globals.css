@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #FDFBF7;
+  --foreground: #2B1E1A;
+}
+
+body {
+  color: var(--foreground);
+  background-color: var(--background);
+  overflow-x: hidden;
+  selection-background-color: #E07A5F;
+  selection-color: #ffffff;
+}
+
+/* Custom Jaipur Havelis & Amsterdam Gable Silhouettes */
+.arch-card {
+  border-top-left-radius: 42px;
+  border-top-right-radius: 42px;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+
+.arch-header {
+  border-radius: 60px 60px 16px 16px;
+}
+
+/* Geometric Jali & Dutch Brick subtle watermark pattern */
+.pattern-jali {
+  background-color: #FDFBF7;
+  background-image: radial-gradient(#E07A5F 0.75px, transparent 0.75px), radial-gradient(#1A535C 0.75px, #FDFBF7 0.75px);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+  background-opacity: 0.05;
+}
+
+.pattern-brick-lattice {
+  background-image: linear-gradient(rgba(224, 122, 95, 0.04) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(224, 122, 95, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Smooth Image Mask blending */
+.image-blend-gradient {
+  mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+}
+
+.image-soft-vignette {
+  box-shadow: inset 0 0 40px rgba(43, 30, 26, 0.35);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F5EBE1;
+}
+::-webkit-scrollbar-thumb {
+  background: #E07A5F;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #C84B5B;
+}

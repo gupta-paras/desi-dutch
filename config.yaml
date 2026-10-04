@@ -1,0 +1,46 @@
+# ==============================================================================
+# DESI DUTCH - CONFIGURATION
+# Royal Indian Gastronomy & Amsterdam Gezelligheid
+# ==============================================================================
+
+restaurant:
+  name: "Desi Dutch"
+  tagline: "Where the Pink City of Jaipur meets the Canals of Amsterdam"
+  dutch_tagline: "Koninklijke Indiase Gastronomie ontmoet Amsterdamse Gezelligheid"
+  currency: "EUR"
+  currency_symbol: "€"
+
+contact:
+  address:
+    street: "Prinsengracht 412"
+    postal_code: "1016 JA"
+    city: "Amsterdam"
+    country: "The Netherlands"
+    neighborhood: "Nine Streets (De Negen Straatjes)"
+    google_maps_url: "https://maps.google.com/?q=Prinsengracht+412,+1016+JA+Amsterdam"
+  phone: "+31 20 789 4521"
+  whatsapp: "+31 6 1234 5678"
+  email: "info@desidutch.nl"
+  reservations_email: "reservations@desidutch.nl"
+
+hours:
+  monday_thursday: "12:00 - 22:30"
+  friday_saturday: "12:00 - 23:30"
+  sunday: "12:30 - 22:00"
+  note: "Kitchen closes 30 minutes before closing time"
+
+# Only Google accounts with these emails are granted access to /admin
+admin_users:
+  - "admin@desidutch.nl"
+  - "paras@desidutch.nl"
+  - "owner@desidutch.nl"
+  - "manager@desidutch.nl"
+
+daily_specials:
+  title: "Vandaag's Koninklijke Selectie | Chef's Specials Today"
+  announcement: "From the pink stone tandoors of Jaipur to the tranquil waters of Prinsengracht — today our Head Chef presents crisp Butter Chicken Bitterballen and wood-fired Truffle & Old Amsterdam Naan. Welkom & Padharo!"
+
+social:
+  instagram: "https://instagram.com/desidutch.amsterdam"
+  facebook: "https://facebook.com/desidutch"
+  tripadvisor: "https://tripadvisor.com"
