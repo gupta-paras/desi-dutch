@@ -143,14 +143,7 @@ export function DishCard({ dish, onOpenLightbox, whatsappNumber = "+31 6 1234 56
             </div>
           </div>
 
-          {/* Dutch Description */}
-          {dish.descriptionNl && (
-            <p className="text-xs text-jaipur-dark/80 italic font-serif mb-1 line-clamp-2">
-              "{dish.descriptionNl}"
-            </p>
-          )}
-
-          {/* English Description */}
+          {/* Culinary Description */}
           <p className="text-sm text-amsterdam-canal/75 leading-relaxed line-clamp-3 mb-4">
             {dish.descriptionEn}
           </p>

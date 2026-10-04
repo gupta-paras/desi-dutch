@@ -12,7 +12,7 @@ export function Hero() {
       <div className="absolute inset-0 z-0">
         <img
           src="/images/hero-fusion.jpg"
-          alt="Desi Dutch Jaipur and Amsterdam fusion fine dining"
+          alt="Desi Dutch Indian and Amsterdam fusion fine dining"
           className="w-full h-full object-cover object-center opacity-40 sm:opacity-50 scale-105"
         />
         {/* Soft Radial & Linear Atmospheric Gradients */}
@@ -31,7 +31,7 @@ export function Hero() {
         >
           <Sparkles className="w-4 h-4 text-saffron-gold animate-pulse-slow" />
           <span className="text-xs sm:text-sm font-medium tracking-widest text-saffron-gold uppercase">
-            Jaipur Havelis & Amsterdam Canals
+            Indian Heritage & Amsterdam Canals
           </span>
         </motion.div>
 
@@ -42,11 +42,11 @@ export function Hero() {
           transition={{ duration: 0.7, delay: 0.2 }}
           className="font-serif text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-cream max-w-4xl leading-[1.15]"
         >
-          Koninklijke Indiase Smaak,{" "}
+          Royal Indian Flavours,{" "}
           <span className="italic font-normal text-jaipur-terracotta underline decoration-saffron-gold/40 underline-offset-8">
-            Amsterdamse
+            Amsterdam
           </span>{" "}
-          Gezelligheid.
+          Warmth & Charm.
         </motion.h1>
 
         {/* Subtitle */}
@@ -56,7 +56,7 @@ export function Hero() {
           transition={{ duration: 0.7, delay: 0.35 }}
           className="mt-6 text-base sm:text-xl text-cream-parchment/90 max-w-2xl font-normal leading-relaxed"
         >
-          Where royal Rajasthani tandoor heritage meets Dutch culinary icons.
+          Where rich Indian culinary tradition meets beloved Dutch gastronomic icons.
           From crisp Butter Chicken Bitterballen to wood-fired Old Amsterdam Truffle Naan on Prinsengracht.
         </motion.p>
 
@@ -72,7 +72,7 @@ export function Hero() {
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-jaipur-terracotta hover:bg-jaipur-rose text-white font-semibold text-base shadow-glow hover:scale-105 transition-all duration-300"
           >
             <UtensilsCrossed className="w-5 h-5" />
-            <span>Ontdek Het Menu</span>
+            <span>Explore The Menu</span>
             <ArrowRight className="w-4 h-4 ml-1" />
           </a>
 

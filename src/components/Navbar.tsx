@@ -56,7 +56,7 @@ export function Navbar({ whatsappNumber = "+31 6 1234 5678" }: NavbarProps) {
                 <span className="w-1.5 h-1.5 rounded-full bg-saffron-gold inline-block" />
               </div>
               <p className="text-[10px] sm:text-xs text-jaipur-dark/80 font-medium tracking-wider uppercase hidden sm:block">
-                Jaipur Havelis & Amsterdam Canals
+                Indian Cuisine & Amsterdam Canals
               </p>
             </div>
           </Link>

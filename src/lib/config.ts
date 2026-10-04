@@ -6,8 +6,8 @@ import { RestaurantConfig } from "@/types";
 const defaultConfig: RestaurantConfig = {
   restaurant: {
     name: "Desi Dutch",
-    tagline: "Where the Pink City of Jaipur meets the Canals of Amsterdam",
-    dutch_tagline: "Koninklijke Indiase Gastronomie ontmoet Amsterdamse Gezelligheid",
+    tagline: "Where the Rich Flavours of India meet the Historic Canals of Amsterdam",
+    dutch_tagline: "Royal Indian Gastronomy meets Amsterdam Hospitality",
     currency: "EUR",
     currency_symbol: "€",
   },
@@ -38,9 +38,9 @@ const defaultConfig: RestaurantConfig = {
     "manager@desidutch.nl",
   ],
   daily_specials: {
-    title: "Vandaag's Koninklijke Selectie | Chef's Specials Today",
+    title: "Today's Royal Feature | Chef's Signature Specials",
     announcement:
-      "From the pink stone tandoors of Jaipur to the tranquil waters of Prinsengracht — today our Head Chef presents crisp Butter Chicken Bitterballen and wood-fired Truffle & Old Amsterdam Naan. Welkom & Padharo!",
+      "From the wood-fired tandoors of India to the serene waters of Prinsengracht — today our Head Chef presents crisp Butter Chicken Bitterballen and wood-fired Truffle & Old Amsterdam Naan. Welcome!",
   },
   social: {
     instagram: "https://instagram.com/desidutch.amsterdam",

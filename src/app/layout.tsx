@@ -18,14 +18,14 @@ const plusJakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: "Desi Dutch | Royal Indian Gastronomy meets Amsterdam Canals",
   description:
-    "An exquisite Indo-Dutch fusion restaurant on Prinsengracht, Amsterdam. Where the Pink City of Jaipur meets 17th-century canal houses. Authentic tandoor, Butter Chicken Bitterballen, and Gouda Naan.",
+    "An exquisite Indo-Dutch fusion restaurant on Prinsengracht, Amsterdam. Where the vibrant culinary heritage of India meets 17th-century canal houses. Authentic tandoor, Butter Chicken Bitterballen, and Gouda Naan.",
   keywords: [
     "Desi Dutch",
     "Indian restaurant Amsterdam",
     "Prinsengracht restaurant",
     "Indo-Dutch fusion",
     "Butter Chicken Bitterballen",
-    "Jaipur food Amsterdam",
+    "Indian food Amsterdam",
     "Halal Indian food Amsterdam",
   ],
   authors: [{ name: "Desi Dutch Culinary Brigade" }],

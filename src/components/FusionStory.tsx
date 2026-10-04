@@ -7,25 +7,25 @@ import { Compass, Sparkles } from "lucide-react";
 export function FusionStory() {
   const fusionPillars = [
     {
-      title: "Pink Terracotta & Canal Brick",
+      title: "Royal Sandstone & Canal Brick",
       description:
-        "The warm, rose-tinted sandstone of Jaipur's Hawa Mahal finds its twin soul in the weathered 17th-century red bricks of Amsterdam's historic canal belt.",
-      jaipurAspect: "Pink City Sandstone & Royal Havelis",
+        "The warm, rose-tinted terracotta arches of historic Indian palaces find their twin soul in the weathered 17th-century red bricks of Amsterdam's historic canal belt.",
+      indiaAspect: "Royal Sandstone & Ornate Archways",
       amsterdamAspect: "Prinsengracht Stepped Gables",
     },
     {
-      title: "Royal Tandoor & Dutch Comfort",
+      title: "Authentic Tandoor & Dutch Comfort",
       description:
-        "We marry intense 400°C clay-oven heat and fragrant royal spice masalas with beloved Dutch comfort foods — creating Butter Chicken Bitterballen and Truffle Gouda Naan.",
-      jaipurAspect: "Charcoal Dhungar & Mathania Chilies",
+        "We marry intense 400°C clay-oven heat and fragrant Indian spice masalas with beloved Dutch comfort foods — creating Butter Chicken Bitterballen and Truffle Gouda Naan.",
+      indiaAspect: "Clay Tandoors & Rich Spices",
       amsterdamAspect: "Aged Gouda & Crisp Bitterballen",
     },
     {
-      title: "Padharo Mhare Desh & Gezelligheid",
+      title: "Sacred Hospitality & Dutch Gezelligheid",
       description:
-        "Rajasthan's ancient creed of sacred hospitality ('Welcome to my realm') blends effortlessly with the Dutch essence of 'Gezelligheid' — warm, candlelit, joyful togetherness.",
-      jaipurAspect: "Rajput Royal Welcome",
-      amsterdamAspect: "Amsterdam Warm Gezelligheid",
+        "India's timeless philosophy of soulful hospitality ('Atithi Devo Bhava') blends effortlessly with the Dutch essence of 'Gezelligheid' — warm, candlelit, joyful togetherness.",
+      indiaAspect: "Warm Indian Hospitality",
+      amsterdamAspect: "Amsterdam Cozy Gezelligheid",
     },
   ];
 
@@ -43,11 +43,11 @@ export function FusionStory() {
           </div>
 
           <h2 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight text-cream">
-            Jaipur Havelis Ontmoeten Amsterdamse Grachten
+            Indian Heritage Meets Amsterdam Canals
           </h2>
 
           <p className="mt-4 text-base sm:text-lg text-cream-parchment/80 leading-relaxed font-normal">
-            Desi Dutch was born from a romantic obsession: what happens when 5,000 miles of spice routes converge on a candlelit canal house terrace in Amsterdam?
+            Desi Dutch was born from a romantic culinary vision: what happens when thousands of miles of vibrant spice routes converge on a candlelit canal house terrace in Amsterdam?
           </p>
         </div>
 
@@ -80,8 +80,8 @@ export function FusionStory() {
               {/* Cultural Harmony Badge */}
               <div className="pt-4 border-t border-cream/10 flex flex-col gap-1.5 text-xs">
                 <div className="flex items-center justify-between text-saffron-gold">
-                  <span className="font-semibold">Jaipur:</span>
-                  <span className="text-cream/90">{pillar.jaipurAspect}</span>
+                  <span className="font-semibold">India:</span>
+                  <span className="text-cream/90">{pillar.indiaAspect}</span>
                 </div>
                 <div className="flex items-center justify-between text-delft-blue">
                   <span className="font-semibold text-sky-400">Amsterdam:</span>
@@ -95,10 +95,10 @@ export function FusionStory() {
         {/* Signature Quote Banner */}
         <div className="mt-16 p-8 rounded-3xl bg-gradient-to-r from-jaipur-terracotta/20 via-cream/5 to-peacock/20 border border-cream/15 text-center max-w-4xl mx-auto">
           <p className="font-serif italic text-lg sm:text-xl text-cream-parchment">
-            “Food is the swiftest ship between Rajasthan and North Holland. At Desi Dutch, you taste centuries of silk and spice with every bite.”
+            “Food is the swiftest bridge between India and North Holland. At Desi Dutch, you taste centuries of silk and spice with every bite.”
           </p>
           <p className="mt-3 text-xs tracking-widest text-saffron-gold uppercase font-semibold">
-            Chef Rajesh & The Amsterdam Culinary Brigade
+            The Amsterdam Culinary Brigade
           </p>
         </div>
       </div>

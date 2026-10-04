@@ -29,10 +29,7 @@ export function Footer({ config }: FooterProps) {
               </span>
             </div>
             <p className="text-xs sm:text-sm text-cream-parchment/75 leading-relaxed">
-              {config.restaurant.tagline}. An exquisite culinary fusion of Rajasthan's royal heritage and Dutch hospitality.
-            </p>
-            <p className="text-xs text-saffron-gold italic font-serif">
-              "{config.restaurant.dutch_tagline}"
+              {config.restaurant.tagline}. An exquisite culinary fusion of India's royal culinary heritage and Dutch hospitality.
             </p>
           </div>
 
@@ -54,7 +51,7 @@ export function Footer({ config }: FooterProps) {
               </li>
               <li>
                 <a href="#story" className="hover:text-saffron-gold transition-colors">
-                  The Jaipur-Amsterdam Tale
+                  The Indian & Amsterdam Tale
                 </a>
               </li>
               <li>
@@ -117,7 +114,7 @@ export function Footer({ config }: FooterProps) {
             © {new Date().getFullYear()} {config.restaurant.name}. All rights reserved.
           </p>
           <p className="flex items-center gap-1.5">
-            Crafted with <Heart className="w-3.5 h-3.5 text-jaipur-rose fill-current" /> in Amsterdam & Jaipur
+            Crafted with <Heart className="w-3.5 h-3.5 text-jaipur-rose fill-current" /> in Amsterdam & India
           </p>
         </div>
       </div>

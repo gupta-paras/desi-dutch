@@ -129,7 +129,7 @@ export function ContactSection({ config }: ContactSectionProps) {
               <div className="p-8 text-center bg-cream-warm rounded-2xl border border-emerald-200">
                 <CheckCircle2 className="w-12 h-12 text-emerald-600 mx-auto mb-3" />
                 <h4 className="font-serif text-xl font-bold text-amsterdam-canal">
-                  Dank je wel, {formData.name || "Guest"}!
+                  Thank you, {formData.name || "Guest"}!
                 </h4>
                 <p className="text-sm text-amsterdam-canal/70 mt-2 max-w-md mx-auto">
                   We have received your reservation request for <strong>{formData.guests} guests</strong> on{" "}
