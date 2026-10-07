@@ -1,120 +1,130 @@
-import React from "react";
-import Link from "next/link";
-import { RestaurantConfig } from "@/types";
-import { ShieldCheck, Heart, MapPin, Phone, Mail } from "lucide-react";
-import { CuspedGableDivider } from "./CuspedGableDivider";
+'use client';
 
-interface FooterProps {
-  config: RestaurantConfig;
-}
+import React from 'react';
+import Link from 'next/link';
+import { useConfig } from '@/context/ConfigContext';
+import { useLanguage } from '@/context/LanguageContext';
+import { Heart, Clock, ShieldCheck, Globe, UtensilsCrossed } from 'lucide-react';
 
-export function Footer({ config }: FooterProps) {
+export function Footer() {
+  const { config } = useConfig();
+  const { lang, setLang, t } = useLanguage();
+
+  const isNl = lang === 'nl';
+
   return (
-    <footer className="bg-amsterdam-canal text-cream relative pt-12 overflow-hidden">
-      {/* Top architectural inverted divider */}
-      <div className="w-full mb-10">
-        <CuspedGableDivider fillColor="#FDFBF7" invert={true} />
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
-          {/* Col 1: Brand & Tagline */}
-          <div className="space-y-4 md:col-span-1">
+    <footer className="mt-auto bg-[#141413] text-stone-300 border-t border-stone-800">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Brand & Story */}
+          <div className="md:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-jaipur-terracotta flex items-center justify-center font-serif font-bold text-white text-lg shadow-glow">
-                DD
+              <div className="relative w-10 h-10 rounded-xl bg-[#1E1E1C] border border-[#C07C27]/40 flex items-center justify-center text-stone-100 font-serif font-medium text-lg shadow-inner">
+                <span className="tracking-tighter">DD</span>
+                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-[#1D3557] border border-[#141413]" title="Amsterdam Canal Heritage" />
+                <span className="absolute -bottom-1 -left-1 w-2.5 h-2.5 rounded-full bg-[#C07C27] border border-[#141413]" title="Delhi Spice Heritage" />
               </div>
-              <span className="font-serif text-2xl font-bold tracking-wide text-cream">
-                {config.restaurant.name}
-              </span>
+              <div>
+                <h3 className="font-serif text-lg font-medium text-white leading-tight">
+                  {config.restaurant.name}
+                </h3>
+                <p className="text-[11px] uppercase tracking-widest text-stone-400">
+                  {isNl ? config.restaurant.cuisine_label_nl : config.restaurant.cuisine_label}
+                </p>
+              </div>
             </div>
-            <p className="text-xs sm:text-sm text-cream-parchment/75 leading-relaxed">
-              {config.restaurant.tagline}. An exquisite culinary fusion of India's royal culinary heritage and Dutch hospitality.
+            <p className="text-xs font-serif italic text-[#D89E4B]">
+              {isNl ? config.restaurant.tagline_nl : config.restaurant.tagline}
+            </p>
+            <p className="text-xs text-stone-400 max-w-sm leading-relaxed">
+              {t(
+                'Desi Dutch serves authentic Indian home cooking, prepared with passion and soul. Fresh ingredients, comforting spices, and pure hospitality.',
+                'Desi Dutch serveert authentieke Indiase thuisgerechten, met passie en toewijding bereid. Verse ingrediënten, verwarmende specerijen en oprechte gastvrijheid.'
+              )}
             </p>
           </div>
 
-          {/* Col 2: Navigation Links */}
+          {/* Ordering & Collection */}
           <div className="space-y-3">
-            <h4 className="font-serif font-bold text-base text-cream tracking-wide">
-              Quick Links
+            <h4 className="text-xs font-bold uppercase tracking-wider text-stone-200">
+              {t('Ordering & Pickup', 'Bestellen & Afhalen')}
             </h4>
-            <ul className="space-y-2 text-xs sm:text-sm text-cream-parchment/80">
+            <div className="space-y-2.5 text-xs text-stone-400">
+              <div className="flex items-start gap-2">
+                <Clock className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+                <p className="leading-snug">
+                  {isNl ? config.ordering_notice.pickup_info_nl : config.ordering_notice.pickup_info}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Links & Language */}
+          <div className="space-y-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-stone-200">
+              {t('Quick Navigation', 'Navigatie')}
+            </h4>
+            <ul className="space-y-2 text-xs text-stone-400">
               <li>
-                <a href="#menu" className="hover:text-saffron-gold transition-colors">
-                  Our Menu & Creations
+                <a href="#menu" className="hover:text-amber-400 transition-colors flex items-center gap-1.5">
+                  <UtensilsCrossed className="w-3.5 h-3.5 text-stone-500" />
+                  {t('Our menu', 'Ons menu')}
                 </a>
               </li>
               <li>
-                <a href="#specials" className="hover:text-saffron-gold transition-colors">
-                  Today's Chef Specials
+                <a href="#about" className="hover:text-amber-400 transition-colors">
+                  {t('About me', 'Over mij')}
                 </a>
               </li>
               <li>
-                <a href="#story" className="hover:text-saffron-gold transition-colors">
-                  The Indian & Amsterdam Tale
+                <a href="#ordering" className="hover:text-amber-400 transition-colors">
+                  {t('How to order', 'Bestellen')}
                 </a>
               </li>
               <li>
-                <a href="#contact" className="hover:text-saffron-gold transition-colors">
-                  Table Reservations
-                </a>
+                <Link
+                  href="/admin"
+                  className="inline-flex items-center gap-1.5 hover:text-amber-400 transition-colors font-medium text-stone-300"
+                >
+                  <ShieldCheck className="w-3.5 h-3.5 text-amber-500" />
+                  {t('Kitchen Admin Portal', 'Keuken Beheer')}
+                </Link>
+              </li>
+              <li className="pt-2">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-stone-800 border border-stone-700 text-stone-300 text-xs">
+                  <Globe className="w-3.5 h-3.5 text-amber-500" />
+                  <span className="text-[11px] text-stone-400">{t('Language:', 'Taal:')}</span>
+                  <button
+                    type="button"
+                    onClick={() => setLang('en')}
+                    className={`font-semibold cursor-pointer ${
+                      lang === 'en' ? 'text-amber-400 underline underline-offset-2' : 'hover:text-white'
+                    }`}
+                  >
+                    EN
+                  </button>
+                  <span className="text-stone-600">|</span>
+                  <button
+                    type="button"
+                    onClick={() => setLang('nl')}
+                    className={`font-semibold cursor-pointer ${
+                      lang === 'nl' ? 'text-amber-400 underline underline-offset-2' : 'hover:text-white'
+                    }`}
+                  >
+                    NL
+                  </button>
+                </div>
               </li>
             </ul>
           </div>
-
-          {/* Col 3: Contact & Hours */}
-          <div className="space-y-3">
-            <h4 className="font-serif font-bold text-base text-cream tracking-wide">
-              Contact & Hours
-            </h4>
-            <div className="space-y-2 text-xs sm:text-sm text-cream-parchment/80">
-              <p className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-jaipur-terracotta flex-shrink-0 mt-0.5" />
-                <span>{config.contact.address.street}, {config.contact.address.city}</span>
-              </p>
-              <p className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-jaipur-terracotta flex-shrink-0" />
-                <a href={`tel:${config.contact.phone}`} className="hover:text-saffron-gold">
-                  {config.contact.phone}
-                </a>
-              </p>
-              <p className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-jaipur-terracotta flex-shrink-0" />
-                <a href={`mailto:${config.contact.email}`} className="hover:text-saffron-gold">
-                  {config.contact.email}
-                </a>
-              </p>
-              <p className="text-xs text-saffron-gold pt-1">
-                Mon–Thu: {config.hours.monday_thursday} | Fri–Sat: {config.hours.friday_saturday}
-              </p>
-            </div>
-          </div>
-
-          {/* Col 4: Admin Portal & Management */}
-          <div className="space-y-3">
-            <h4 className="font-serif font-bold text-base text-cream tracking-wide">
-              Management Portal
-            </h4>
-            <p className="text-xs text-cream-parchment/70 leading-relaxed">
-              Authorized restaurant staff and whitelisted Google accounts can manage dishes, daily specials, and contact information.
-            </p>
-            <Link
-              href="/admin"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-cream/10 hover:bg-jaipur-terracotta text-cream text-xs font-semibold border border-cream/20 transition-all duration-200 mt-2"
-            >
-              <ShieldCheck className="w-4 h-4 text-saffron-gold" />
-              <span>Admin Dashboard</span>
-            </Link>
-          </div>
         </div>
 
-        {/* Bottom Legal Row */}
-        <div className="mt-12 pt-8 border-t border-cream/10 flex flex-col sm:flex-row items-center justify-between text-xs text-cream-parchment/60 gap-4">
-          <p>
-            © {new Date().getFullYear()} {config.restaurant.name}. All rights reserved.
-          </p>
-          <p className="flex items-center gap-1.5">
-            Crafted with <Heart className="w-3.5 h-3.5 text-jaipur-rose fill-current" /> in Amsterdam & India
+        <div className="mt-12 pt-8 border-t border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500">
+          <p>© 2026 {config.restaurant.name}. {t('All rights reserved.', 'Alle rechten voorbehouden.')}</p>
+          <p className="flex items-center gap-1">
+            <span>{t('Crafted with', 'Gemaakt met')}</span>
+            <Heart className="w-3 h-3 text-red-500 fill-red-500" />
+            <span>{t('for lovers of authentic Indian cuisine', 'voor liefhebbers van authentiek Indiaas eten')}</span>
           </p>
         </div>
       </div>

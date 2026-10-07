@@ -1,187 +1,221 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { Dish } from "@/types";
-import { Flame, Sparkles, MessageCircle, Eye, ChevronLeft, ChevronRight, GlassWater } from "lucide-react";
-import { motion } from "framer-motion";
+import React, { useState } from 'react';
+import Image from 'next/image';
+import { Dish } from '@/types';
+import { useCart } from '@/context/CartContext';
+import { useLanguage } from '@/context/LanguageContext';
+import { Sparkles, Plus, Minus, UtensilsCrossed, Ban, Clock } from 'lucide-react';
 
 interface DishCardProps {
   dish: Dish;
-  onOpenLightbox?: (images: string[], index: number, title: string) => void;
-  whatsappNumber?: string;
 }
 
-export function DishCard({ dish, onOpenLightbox, whatsappNumber = "+31 6 1234 5678" }: DishCardProps) {
-  const [photoIndex, setPhotoIndex] = useState(0);
+export function DishCard({ dish }: DishCardProps) {
+  const { addItem, updateQuantity, getItemQuantity } = useCart();
+  const { language, t } = useLanguage();
+  const quantity = getItemQuantity(dish.dish_id);
+  const [imageError, setImageError] = useState(false);
 
-  const photos = dish.photos && dish.photos.length > 0
-    ? dish.photos
-    : ["https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=800&q=80"];
+  const isNl = language === 'nl';
+  const displayName = isNl && dish.name_nl ? dish.name_nl : dish.name;
+  const displayDescription = isNl && dish.description_nl ? dish.description_nl : dish.description;
 
-  const handleNextPhoto = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setPhotoIndex((prev) => (prev + 1) % photos.length);
-  };
+  const isComingSoon = Boolean(dish.is_coming_soon) || dish.price === 0;
 
-  const handlePrevPhoto = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setPhotoIndex((prev) => (prev - 1 + photos.length) % photos.length);
-  };
-
-  // Direct WhatsApp order link
-  const handleOrderWhatsApp = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    const cleanNumber = whatsappNumber.replace(/[^0-9]/g, "");
-    const message = `Hallo Desi Dutch! 👋\nI would like to order:\n• ${dish.name} (€${dish.price.toFixed(2)})\n\nIs it available for pickup / delivery today? Dank je wel!`;
-    const url = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`;
-    window.open(url, "_blank");
+  // Helper to color tags tastefully with minimal muted tones
+  const getTagStyle = (tag: string) => {
+    const lower = tag.toLowerCase();
+    if (lower.includes('spicy')) {
+      return 'bg-red-50/70 text-red-800 border-red-200/60';
+    }
+    if (lower.includes('veg')) {
+      return 'bg-emerald-50/70 text-emerald-800 border-emerald-200/60';
+    }
+    if (lower.includes('curry') || lower.includes('curries')) {
+      return 'bg-amber-50/70 text-amber-900 border-amber-200/60';
+    }
+    if (lower.includes('biryani')) {
+      return 'bg-orange-50/70 text-orange-900 border-orange-200/60';
+    }
+    if (lower.includes('dessert') || lower.includes('sweet')) {
+      return 'bg-rose-50/70 text-rose-800 border-rose-200/60';
+    }
+    return 'bg-[#FAF8F5] text-stone-700 border-stone-200/80';
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.4 }}
-      className="group relative flex flex-col bg-white rounded-3xl overflow-hidden border border-cream-parchment/60 hover:border-jaipur-terracotta/40 shadow-sm hover:shadow-card transition-all duration-300"
+    <article
+      className={`group relative flex flex-col bg-white rounded-2xl border border-[#EAE6DF] overflow-hidden shadow-2xs hover:shadow-md hover:border-[#C07C27]/50 transition-all duration-300 ${
+        !dish.is_available && !isComingSoon ? 'opacity-85' : ''
+      }`}
     >
-      {/* Top Image Section with Jaipur Arch Frame & Soft Gradient Blend */}
-      <div className="relative w-full aspect-[4/3] overflow-hidden bg-cream-warm">
-        {/* The Blended Dish Image */}
-        <img
-          src={photos[photoIndex]}
-          alt={dish.name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-          loading="lazy"
-        />
-
-        {/* Seamless Blend Vignette & Gradient into Card Content */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent pointer-events-none" />
-
-        {/* Special Today Gold Badge */}
-        {dish.isSpecialToday && (
-          <div className="absolute top-3 left-3 flex items-center gap-1.5 px-3 py-1 rounded-full bg-saffron-gold text-amsterdam-canal font-medium text-xs shadow-md tracking-wider uppercase backdrop-blur-sm">
-            <Sparkles className="w-3.5 h-3.5 text-amsterdam-canal fill-current animate-pulse-slow" />
-            <span>Special Today</span>
+      {/* 16/10 Framing Food Image Container */}
+      <div className="relative aspect-[16/10] w-full overflow-hidden bg-stone-100">
+        {!imageError && dish.photo_url ? (
+          <Image
+            src={dish.photo_url}
+            alt={displayName}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className={`object-cover transition-transform duration-700 ease-out group-hover:scale-103 ${
+              !dish.is_available && !isComingSoon ? 'grayscale contrast-75' : ''
+            }`}
+            onError={() => setImageError(true)}
+            priority={false}
+          />
+        ) : (
+          <div className="w-full h-full flex flex-col items-center justify-center bg-[#FAF8F5] text-stone-400 p-4 text-center">
+            <UtensilsCrossed className="w-10 h-10 mb-2 text-stone-300" />
+            <span className="text-xs font-serif tracking-wide text-stone-500">Desi Dutch Kitchen</span>
           </div>
         )}
 
-        {/* Multi-Photo Carousel Controls if more than 1 image */}
-        {photos.length > 1 && (
-          <>
-            <button
-              onClick={handlePrevPhoto}
-              className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 hover:bg-jaipur-terracotta text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-              aria-label="Previous image"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-            <button
-              onClick={handleNextPhoto}
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 hover:bg-jaipur-terracotta text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-              aria-label="Next image"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
-
-            {/* Dots Indicator */}
-            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 py-1 px-2.5 rounded-full bg-black/40 backdrop-blur-sm">
-              {photos.map((_, i) => (
-                <span
-                  key={i}
-                  className={`w-1.5 h-1.5 rounded-full transition-all ${
-                    i === photoIndex ? "w-3 bg-saffron-gold" : "bg-white/60"
-                  }`}
-                />
-              ))}
+        {/* Floating Badges */}
+        <div className="absolute inset-x-3 top-3 flex items-start justify-between gap-2 pointer-events-none">
+          {/* Daily Special Ribbon */}
+          {dish.daily_special ? (
+            <div className="glass-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold text-[#8C5716] bg-[#FCF9F2]/95 border border-[#C07C27]/30 shadow-2xs">
+              <Sparkles className="w-3.5 h-3.5 text-[#C07C27] fill-[#C07C27]/40" />
+              <span>{t('Daily Special', 'Favoriet uit de keuken')}</span>
             </div>
-          </>
-        )}
+          ) : (
+            <span />
+          )}
 
-        {/* Quick View / Lightbox Icon Button */}
-        {onOpenLightbox && (
-          <button
-            onClick={() => onOpenLightbox(photos, photoIndex, dish.name)}
-            className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/40 hover:bg-jaipur-terracotta text-white flex items-center justify-center opacity-80 hover:opacity-100 transition-all shadow-sm"
-            title="Inspect photos in detail"
-            aria-label="View photo in lightbox"
-          >
-            <Eye className="w-4 h-4" />
-          </button>
-        )}
-
-        {/* Price Floating Pill */}
-        <div className="absolute bottom-3 right-3 px-3 py-1 rounded-full bg-amsterdam-canal/80 backdrop-blur-md text-saffron-gold font-serif font-bold text-base shadow-sm">
-          €{dish.price.toFixed(2)}
-        </div>
-      </div>
-
-      {/* Card Content Section */}
-      <div className="p-5 flex flex-col flex-1 justify-between">
-        <div>
-          {/* Header Row: Title & Spice Meter */}
-          <div className="flex items-start justify-between gap-2 mb-2">
-            <h3 className="font-serif font-bold text-lg text-amsterdam-canal group-hover:text-jaipur-terracotta transition-colors leading-snug">
-              {dish.name}
-            </h3>
-
-            {/* Spice Meter */}
-            <div
-              className="flex items-center gap-0.5 flex-shrink-0 pt-1"
-              title={`Spice Level: ${dish.spiceLevel} of 4`}
-            >
-              {[1, 2, 3, 4].map((level) => (
-                <Flame
-                  key={level}
-                  className={`w-3.5 h-3.5 ${
-                    level <= dish.spiceLevel
-                      ? "text-jaipur-rose fill-jaipur-rose"
-                      : "text-gray-300"
-                  }`}
-                />
-              ))}
+          {/* Status Badge: Coming Soon / In Stock / Sold Out */}
+          {isComingSoon ? (
+            <div className="glass-badge inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider text-stone-700 bg-white/95 border border-stone-200 shadow-2xs">
+              <Clock className="w-3 h-3 text-stone-500" />
+              <span>{t('Coming soon', 'Binnenkort')}</span>
             </div>
-          </div>
-
-          {/* Culinary Description */}
-          <p className="text-sm text-amsterdam-canal/75 leading-relaxed line-clamp-3 mb-4">
-            {dish.descriptionEn}
-          </p>
-
-          {/* Pairing Drink Note if available */}
-          {dish.pairingDrink && (
-            <div className="flex items-center gap-1.5 text-xs text-peacock-light mb-3 bg-delft-ice/70 px-2.5 py-1 rounded-md">
-              <GlassWater className="w-3.5 h-3.5 flex-shrink-0" />
-              <span className="truncate">Pair with: <strong className="text-peacock">{dish.pairingDrink}</strong></span>
+          ) : dish.is_available ? (
+            <div className="glass-badge inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider text-emerald-800 bg-white/95 border border-emerald-200/70 shadow-2xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
+              <span>{t('In Stock', 'Op voorraad')}</span>
+            </div>
+          ) : (
+            <div className="glass-badge inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider text-stone-600 bg-stone-100/95 border border-stone-300 shadow-2xs">
+              <Ban className="w-3 h-3 text-stone-500" />
+              <span>{t('Sold out', 'Uitverkocht')}</span>
             </div>
           )}
         </div>
 
-        {/* Footer Row: Dietary Tags & WhatsApp Order Action */}
-        <div className="pt-3 border-t border-cream-parchment/70 flex items-center justify-between gap-2">
-          {/* Dietary Badges */}
-          <div className="flex flex-wrap gap-1">
-            {dish.dietaryTags.map((tag) => (
+        {/* Sold out overlay banner */}
+        {!dish.is_available && !isComingSoon && (
+          <div className="absolute inset-0 bg-stone-950/40 backdrop-blur-[1px] flex items-center justify-center pointer-events-none">
+            <span className="bg-[#1A1917]/95 text-white text-[11px] font-semibold uppercase tracking-wider px-3.5 py-1.5 rounded-md shadow-md border border-white/15">
+              {t('Sold Out Today', 'Vandaag uitverkocht')}
+            </span>
+          </div>
+        )}
+      </div>
+
+      {/* Card Content */}
+      <div className="flex-1 p-5 flex flex-col justify-between">
+        <div className="space-y-2.5">
+          {/* Tags list */}
+          <div className="flex flex-wrap gap-1.5">
+            {dish.category && (
+              <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#FAF8F5] text-stone-800 border border-stone-200 capitalize">
+                {dish.category}
+              </span>
+            )}
+            {dish.tags.map((tag) => (
               <span
                 key={tag}
-                className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-cream-parchment text-amsterdam-canal/80 border border-cream-parchment"
+                className={`text-[10px] font-medium tracking-wide px-2 py-0.5 rounded-md border capitalize ${getTagStyle(
+                  tag
+                )}`}
               >
                 {tag}
               </span>
             ))}
           </div>
 
-          {/* Direct WhatsApp Order Button */}
-          <button
-            onClick={handleOrderWhatsApp}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm hover:shadow transition-all duration-200"
-            title="Order this creation via WhatsApp"
-          >
-            <MessageCircle className="w-3.5 h-3.5" />
-            <span>Order</span>
-          </button>
+          {/* Title */}
+          <h3 className="font-serif text-lg font-medium text-stone-900 group-hover:text-[#8C5716] transition-colors line-clamp-1 tracking-tight">
+            {displayName}
+          </h3>
+
+          {/* Description */}
+          <p className="text-xs text-stone-600 line-clamp-2 leading-relaxed">
+            {displayDescription}
+          </p>
+        </div>
+
+        {/* Bottom Price & Add to Cart row */}
+        <div className="pt-4 mt-4 border-t border-[#EAE6DF] flex items-center justify-between gap-3">
+          {/* Price Styling */}
+          <div className="flex flex-col">
+            <span className="text-[9px] uppercase font-bold tracking-widest text-stone-400">
+              {t('Price', 'Prijs')}
+            </span>
+            {isComingSoon ? (
+              <span className="text-xs font-semibold text-stone-600 tracking-wide uppercase">
+                {t('Coming soon', 'Binnenkort')}
+              </span>
+            ) : (
+              <span className="font-serif text-xl font-medium text-stone-900 tracking-tight">
+                €{dish.price.toFixed(2)}
+              </span>
+            )}
+          </div>
+
+          {/* Order / Stepper Action */}
+          <div>
+            {isComingSoon ? (
+              <button
+                disabled
+                className="px-3.5 py-2 rounded-xl text-xs font-medium bg-stone-100 text-stone-400 cursor-not-allowed border border-stone-200"
+              >
+                {t('Coming soon', 'Binnenkort')}
+              </button>
+            ) : !dish.is_available ? (
+              <button
+                disabled
+                className="px-4 py-2 rounded-xl text-xs font-medium bg-stone-100 text-stone-400 cursor-not-allowed border border-stone-200"
+              >
+                {t('Unavailable', 'Niet beschikbaar')}
+              </button>
+            ) : quantity > 0 ? (
+              /* Inline Quantity Stepper */
+              <div className="inline-flex items-center gap-2 bg-[#1A1917] text-white rounded-xl p-1 shadow-xs border border-stone-800">
+                <button
+                  type="button"
+                  onClick={() => updateQuantity(dish.dish_id, quantity - 1)}
+                  className="w-7 h-7 rounded-lg flex items-center justify-center text-stone-300 hover:text-white hover:bg-stone-800 transition-colors active:scale-95 cursor-pointer"
+                  aria-label="Decrease quantity"
+                >
+                  <Minus className="w-3.5 h-3.5" />
+                </button>
+                <span className="text-xs font-bold min-w-5 text-center text-white select-none">
+                  {quantity}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => updateQuantity(dish.dish_id, quantity + 1)}
+                  className="w-7 h-7 rounded-lg flex items-center justify-center text-stone-300 hover:text-white hover:bg-stone-800 transition-colors active:scale-95 cursor-pointer"
+                  aria-label="Increase quantity"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            ) : (
+              /* Add to Cart button */
+              <button
+                type="button"
+                onClick={() => addItem(dish)}
+                className="inline-flex items-center gap-1.5 bg-[#1A1917] hover:bg-[#2C2A26] active:scale-95 text-white font-medium text-xs px-3.5 py-2.5 rounded-xl shadow-2xs hover:shadow-xs transition-all duration-150 cursor-pointer border border-stone-800"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                <span>{t('Add', 'Toevoegen')}</span>
+              </button>
+            )}
+          </div>
         </div>
       </div>
-    </motion.div>
+    </article>
   );
 }

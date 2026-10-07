@@ -1,55 +1,45 @@
-import type { Metadata, Viewport } from "next";
-import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
-import "./globals.css";
-import { SessionProvider } from "@/components/SessionProvider";
+import type { Metadata } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
+import './globals.css';
+import { ClientProviders } from '@/components/ClientProviders';
 
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
-  display: "swap",
+const geistSans = Geist({
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
 });
 
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: "--font-plus-jakarta",
-  display: "swap",
+const geistMono = Geist_Mono({
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
-  title: "Desi Dutch | Royal Indian Gastronomy meets Amsterdam Canals",
+  title: 'Desi Dutch | Authentic Indian Cuisines with a Western Touch',
   description:
-    "An exquisite Indo-Dutch fusion restaurant on Prinsengracht, Amsterdam. Where the vibrant culinary heritage of India meets 17th-century canal houses. Authentic tandoor, Butter Chicken Bitterballen, and Gouda Naan.",
+    'Experience the vibrant spectrum of all Indian regional cuisines—from royal Awadhi kormas, rich Punjabi makhani, and fragrant South Indian dishes to coastal curries—crafted with an artisanal Western culinary touch.',
   keywords: [
-    "Desi Dutch",
-    "Indian restaurant Amsterdam",
-    "Prinsengracht restaurant",
-    "Indo-Dutch fusion",
-    "Butter Chicken Bitterballen",
-    "Indian food Amsterdam",
-    "Halal Indian food Amsterdam",
+    'Desi Dutch',
+    'Indian Food Amsterdam',
+    'Pan Indian Cuisine',
+    'Indian Western Fusion',
+    'North Indian Curries',
+    'South Indian Food',
+    'Street Food Amsterdam',
   ],
-  authors: [{ name: "Desi Dutch Culinary Brigade" }],
-  icons: {
-    icon: "/favicon.ico",
-  },
-};
-
-export const viewport: Viewport = {
-  themeColor: "#E07A5F",
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 5,
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en" className={`${playfair.variable} ${plusJakarta.variable}`}>
-      <body className="min-h-screen bg-cream font-sans text-amsterdam-canal antialiased selection:bg-jaipur-terracotta selection:text-white">
-        <SessionProvider>{children}</SessionProvider>
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+    >
+      <body className="min-h-full flex flex-col bg-[#FAF9F6] text-[#1C1917] selection:bg-amber-100 selection:text-amber-900">
+        <ClientProviders>{children}</ClientProviders>
       </body>
     </html>
   );

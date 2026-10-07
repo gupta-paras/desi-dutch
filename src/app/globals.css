@@ -1,69 +1,71 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
-  --background: #FDFBF7;
-  --foreground: #2B1E1A;
+  --background: #FAF8F5;
+  --foreground: #1A1917;
+  --surface: #FFFFFF;
+  --surface-alt: #F4F1EB;
+  --brass: #C07C27;
+  --brass-muted: #E29D38;
+  --delft: #1D3557;
+  --stone-line: #E8E4DC;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-alt: var(--surface-alt);
+  --color-brass: var(--brass);
+  --color-delft: var(--delft);
+  --color-stone-line: var(--stone-line);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
 }
 
 body {
-  color: var(--foreground);
-  background-color: var(--background);
-  overflow-x: hidden;
-  selection-background-color: #E07A5F;
-  selection-color: #ffffff;
+  background-color: #FAF8F5;
+  color: #1A1917;
+  font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.011em;
 }
 
-/* Custom Jaipur Havelis & Amsterdam Gable Silhouettes */
-.arch-card {
-  border-top-left-radius: 42px;
-  border-top-right-radius: 42px;
-  border-bottom-left-radius: 16px;
-  border-bottom-right-radius: 16px;
+/* Custom editorial scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #F4F1EB;
+}
+::-webkit-scrollbar-thumb {
+  background: #D8D4CA;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B8B3A8;
 }
 
-.arch-header {
-  border-radius: 60px 60px 16px 16px;
-}
-
-/* Geometric Jali & Dutch Brick subtle watermark pattern */
-.pattern-jali {
-  background-color: #FDFBF7;
-  background-image: radial-gradient(#E07A5F 0.75px, transparent 0.75px), radial-gradient(#1A535C 0.75px, #FDFBF7 0.75px);
-  background-size: 30px 30px;
-  background-position: 0 0, 15px 15px;
-  background-opacity: 0.05;
-}
-
-.pattern-brick-lattice {
-  background-image: linear-gradient(rgba(224, 122, 95, 0.04) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(224, 122, 95, 0.04) 1px, transparent 1px);
+/* Subtle Indian/Dutch cultural watermark and hairline accents */
+.pattern-heritage {
+  background-image: radial-gradient(circle at 1px 1px, #E5E0D5 1px, transparent 0);
   background-size: 24px 24px;
 }
 
-/* Smooth Image Mask blending */
-.image-blend-gradient {
-  mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+/* Glassmorphism utility with warm matte finish */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(232, 228, 220, 0.9);
 }
 
-.image-soft-vignette {
-  box-shadow: inset 0 0 40px rgba(43, 30, 26, 0.35);
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #F5EBE1;
-}
-::-webkit-scrollbar-thumb {
-  background: #E07A5F;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #C84B5B;
+.glass-badge {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(232, 228, 220, 0.7);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
 }

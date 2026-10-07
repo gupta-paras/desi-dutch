@@ -1,193 +1,130 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import { Phone, ShieldCheck, Menu as MenuIcon, X, MessageCircle } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import React from 'react';
+import Link from 'next/link';
+import { useCart } from '@/context/CartContext';
+import { useConfig } from '@/context/ConfigContext';
+import { useLanguage } from '@/context/LanguageContext';
+import { ShoppingBag, ShieldCheck } from 'lucide-react';
 
-interface NavbarProps {
-  whatsappNumber?: string;
-}
+export function Navbar() {
+  const { totalCount, totalAmount, setIsCartOpen } = useCart();
+  const { config } = useConfig();
+  const { language, setLanguage, t } = useLanguage();
 
-export function Navbar({ whatsappNumber = "+31 6 1234 5678" }: NavbarProps) {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const cleanWhatsApp = whatsappNumber.replace(/[^0-9]/g, "");
-  const whatsappUrl = `https://wa.me/${cleanWhatsApp}?text=${encodeURIComponent(
-    "Hallo Desi Dutch! 👋 I would like to inquire about ordering / reserving from your catalog."
-  )}`;
-
-  const navLinks = [
-    { name: "Catalog & Merch", href: "#menu" },
-    { name: "Today's Specials", href: "#specials" },
-    { name: "Our Fusion Story", href: "#story" },
-    { name: "Contact & Location", href: "#contact" },
-  ];
+  const isNl = language === 'nl';
 
   return (
-    <>
-      <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-          scrolled
-            ? "bg-white/95 backdrop-blur-md shadow-sm py-3 border-b border-cream-parchment"
-            : "bg-transparent py-4 sm:py-5"
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Brand Logo & Tagline */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-br from-jaipur-terracotta to-jaipur-rose flex items-center justify-center shadow-glow text-white font-serif font-bold text-lg sm:text-xl border border-white/40">
-              <span className="tracking-tighter">DD</span>
+    <header className="sticky top-0 z-40 w-full bg-[#FAF8F5]/95 backdrop-blur-md border-b border-[#E8E4DC] transition-all">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20">
+          {/* Brand Identity */}
+          <Link
+            href="/"
+            className="group flex items-center gap-3 focus:outline-none rounded-lg"
+          >
+            <div className="relative w-10 h-10 rounded-lg bg-[#1A1917] flex items-center justify-center text-[#FAF8F5] shadow-xs group-hover:bg-[#282724] transition-colors border border-stone-800">
+              <span className="font-serif font-medium text-base tracking-widest">DD</span>
+              {/* Subtle dual cultural pin: Delft blue & Saffron brass corner dots */}
+              <span className="absolute top-1 left-1 w-1 h-1 rounded-full bg-[#1D3557]/80" />
+              <span className="absolute bottom-1 right-1 w-1 h-1 rounded-full bg-[#C07C27]" />
             </div>
-            <div>
-              <div className="flex items-center gap-1.5">
-                <span className="font-serif text-xl sm:text-2xl font-black text-amsterdam-canal tracking-wide group-hover:text-jaipur-terracotta transition-colors">
-                  Desi Dutch
+            <div className="flex flex-col">
+              <div className="flex items-center gap-2">
+                <span className="font-serif text-xl font-bold tracking-tight text-[#1A1917]">
+                  {config.restaurant.name}
                 </span>
-                <span className="w-1.5 h-1.5 rounded-full bg-saffron-gold inline-block" />
+                <span className="hidden sm:inline-block text-[10px] tracking-widest uppercase font-semibold text-[#C07C27] bg-[#C07C27]/10 px-1.5 py-0.5 rounded border border-[#C07C27]/20">
+                  AMS × DEL
+                </span>
               </div>
-              <p className="text-[10px] sm:text-xs text-jaipur-dark/80 font-medium tracking-wider uppercase hidden sm:block">
-                Indian Cuisine & Amsterdam Canals
-              </p>
+              <span className="text-[11px] text-stone-500 font-medium tracking-wider uppercase">
+                {isNl ? config.restaurant.cuisine_label_nl : config.restaurant.cuisine_label}
+              </span>
             </div>
           </Link>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-7">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-sm font-medium text-amsterdam-canal/80 hover:text-jaipur-terracotta transition-colors relative py-1"
-              >
-                {link.name}
-              </a>
-            ))}
+          {/* Navigation Links */}
+          <nav className="hidden md:flex items-center gap-8 text-xs font-semibold tracking-wider uppercase text-stone-600">
+            <a href="#menu" className="hover:text-stone-900 transition-colors py-1 border-b border-transparent hover:border-stone-900">
+              {t('Our menu', 'Ons menu')}
+            </a>
+            <a href="#about" className="hover:text-stone-900 transition-colors py-1 border-b border-transparent hover:border-stone-900">
+              {t('About me', 'Over mij')}
+            </a>
+            <a href="#ordering" className="hover:text-stone-900 transition-colors py-1 border-b border-transparent hover:border-stone-900">
+              {t('How to order', 'Bestellen')}
+            </a>
           </nav>
 
-          {/* Right Action Buttons */}
-          <div className="flex items-center gap-3">
-            {/* Direct WhatsApp Order CTA Button */}
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-semibold shadow-sm hover:shadow-md transition-all duration-200"
-            >
-              <MessageCircle className="w-4 h-4" />
-              <span>Order via WhatsApp</span>
-            </a>
+          {/* Right Navigation Actions */}
+          <div className="flex items-center gap-3 sm:gap-4">
+            {/* EN / NL Language Switcher */}
+            <div className="inline-flex items-center rounded-full bg-[#F4F1EB] p-0.5 border border-[#E8E4DC] text-xs font-medium">
+              <button
+                type="button"
+                onClick={() => setLanguage('en')}
+                className={`px-2.5 py-1 rounded-full transition-all cursor-pointer ${
+                  language === 'en'
+                    ? 'bg-white text-stone-900 shadow-2xs font-bold border border-stone-200/60'
+                    : 'text-stone-500 hover:text-stone-900'
+                }`}
+                title="Switch to English"
+                aria-label="Switch language to English"
+              >
+                EN
+              </button>
+              <button
+                type="button"
+                onClick={() => setLanguage('nl')}
+                className={`px-2.5 py-1 rounded-full transition-all cursor-pointer ${
+                  language === 'nl'
+                    ? 'bg-white text-stone-900 shadow-2xs font-bold border border-stone-200/60'
+                    : 'text-stone-500 hover:text-stone-900'
+                }`}
+                title="Schakel naar Nederlands"
+                aria-label="Switch language to Dutch"
+              >
+                NL
+              </button>
+            </div>
 
-            {/* Admin Portal Link */}
+            {/* Admin Dashboard Link */}
             <Link
               href="/admin"
-              className="p-2.5 rounded-full text-amsterdam-canal/70 hover:text-jaipur-terracotta hover:bg-cream-parchment transition-all"
-              title="Admin Portal"
+              className="inline-flex items-center gap-1.5 text-xs font-medium text-stone-600 hover:text-stone-900 px-2.5 py-1.5 rounded-lg hover:bg-stone-100 transition-colors"
+              title={t('Kitchen Management Portal', 'Keukenbeheerportaal')}
             >
-              <ShieldCheck className="w-5 h-5" />
+              <ShieldCheck className="w-3.5 h-3.5 text-stone-400" />
+              <span className="hidden lg:inline">{t('Kitchen', 'Keuken')}</span> Admin
             </Link>
 
-            {/* Mobile Menu Hamburger */}
+            {/* Cart Drawer Trigger */}
             <button
-              onClick={() => setMobileMenuOpen(true)}
-              className="md:hidden p-2 rounded-xl text-amsterdam-canal hover:bg-cream-parchment"
-              aria-label="Open mobile navigation"
+              type="button"
+              onClick={() => setIsCartOpen(true)}
+              className="relative inline-flex items-center gap-2 bg-[#1A1917] hover:bg-[#282724] active:scale-[0.98] text-[#FAF8F5] px-3.5 sm:px-4 py-2.5 rounded-full font-medium text-xs tracking-wide shadow-xs transition-all cursor-pointer border border-stone-800"
+              aria-label={`${t('Open basket', 'Open winkelmandje')} - Open shopping cart`}
             >
-              <MenuIcon className="w-6 h-6" />
+              <div className="relative">
+                <ShoppingBag className="w-3.5 h-3.5 text-[#E29D38]" />
+                {totalCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-[#C07C27] text-white text-[9px] font-bold h-3.5 min-w-3.5 px-1 rounded-full flex items-center justify-center shadow-xs">
+                    {totalCount}
+                  </span>
+                )}
+              </div>
+              <span className="hidden sm:inline font-semibold">
+                {totalCount > 0 ? (
+                  <span>€{totalAmount.toFixed(2)}</span>
+                ) : (
+                  <span>{t('Basket', 'Mandje')}</span>
+                )}
+              </span>
             </button>
           </div>
         </div>
-      </header>
-
-      {/* Mobile Animated Drawer Menu */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <div className="fixed inset-0 z-50 md:hidden">
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setMobileMenuOpen(false)}
-              className="absolute inset-0 bg-amsterdam-canal/60 backdrop-blur-sm"
-            />
-
-            {/* Drawer */}
-            <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="absolute right-0 top-0 bottom-0 w-4/5 max-w-sm bg-cream p-6 shadow-2xl flex flex-col justify-between"
-            >
-              <div>
-                {/* Header */}
-                <div className="flex items-center justify-between pb-6 border-b border-cream-parchment">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-xl bg-jaipur-terracotta text-white flex items-center justify-center font-serif font-bold text-sm">
-                      DD
-                    </div>
-                    <span className="font-serif font-bold text-lg text-amsterdam-canal">
-                      Desi Dutch
-                    </span>
-                  </div>
-                  <button
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="p-2 rounded-full hover:bg-cream-parchment text-amsterdam-canal"
-                  >
-                    <X className="w-5 h-5" />
-                  </button>
-                </div>
-
-                {/* Nav Links */}
-                <div className="mt-8 flex flex-col gap-5">
-                  {navLinks.map((link) => (
-                    <a
-                      key={link.name}
-                      href={link.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="font-serif text-lg text-amsterdam-canal hover:text-jaipur-terracotta transition-colors py-1"
-                    >
-                      {link.name}
-                    </a>
-                  ))}
-                  <Link
-                    href="/admin"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-2 font-serif text-lg text-amsterdam-canal/80 hover:text-jaipur-terracotta transition-colors py-1"
-                  >
-                    <ShieldCheck className="w-5 h-5 text-jaipur-terracotta" />
-                    <span>Admin Portal</span>
-                  </Link>
-                </div>
-              </div>
-
-              {/* Bottom Quick Contact */}
-              <div className="pt-6 border-t border-cream-parchment space-y-2">
-                <p className="text-xs text-amsterdam-canal/60">Prinsengracht 412, Amsterdam</p>
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-2 py-3 rounded-full bg-emerald-600 text-white font-semibold text-sm shadow-md"
-                >
-                  <MessageCircle className="w-4 h-4" />
-                  <span>Order on WhatsApp</span>
-                </a>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
-    </>
+      </div>
+    </header>
   );
 }
