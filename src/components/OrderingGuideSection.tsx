@@ -50,7 +50,7 @@ export function OrderingGuideSection() {
         </div>
 
         {/* 3 Step Process Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-14">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto mb-10 sm:mb-14">
           {how_to_order.steps.map((stepItem, idx) => {
             const stepTitle = isNl ? stepItem.title_nl : stepItem.title;
             const stepDesc = isNl ? stepItem.desc_nl : stepItem.desc;
@@ -58,9 +58,9 @@ export function OrderingGuideSection() {
             return (
               <div
                 key={stepItem.step || idx}
-                className="relative bg-[#FAF8F5] rounded-2xl border border-[#EAE6DF] p-7 flex flex-col justify-between hover:border-[#C07C27]/40 transition-colors shadow-2xs"
+                className="relative bg-[#FAF8F5] rounded-2xl border border-[#EAE6DF] p-5 sm:p-7 flex flex-col justify-between hover:border-[#C07C27]/40 transition-colors shadow-2xs"
               >
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   <div className="flex items-center justify-between">
                     <span className="font-serif text-2xl font-normal text-[#C07C27]">
                       {stepItem.step}
@@ -69,7 +69,7 @@ export function OrderingGuideSection() {
                       {getStepIcon(idx)}
                     </div>
                   </div>
-                  <h3 className="font-serif text-lg font-medium text-stone-900">{stepTitle}</h3>
+                  <h3 className="font-serif text-base sm:text-lg font-medium text-stone-900">{stepTitle}</h3>
                   <p className="text-xs text-stone-600 leading-relaxed">{stepDesc}</p>
                 </div>
               </div>
@@ -78,13 +78,13 @@ export function OrderingGuideSection() {
         </div>
 
         {/* Occasions & Customizations Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-5xl mx-auto">
           {/* Birthday & Party Orders */}
-          <div className="bg-[#FAF8F5] rounded-2xl border border-[#EAE6DF] p-7 flex gap-4 hover:border-stone-300 transition-colors shadow-2xs">
-            <div className="w-11 h-11 rounded-xl bg-white border border-[#EAE6DF] flex items-center justify-center shrink-0 shadow-2xs">
+          <div className="bg-[#FAF8F5] rounded-2xl border border-[#EAE6DF] p-5 sm:p-7 flex flex-col sm:flex-row items-start gap-3.5 sm:gap-4 hover:border-stone-300 transition-colors shadow-2xs">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white border border-[#EAE6DF] flex items-center justify-center shrink-0 shadow-2xs">
               <Gift className="w-5 h-5 text-[#C07C27]" />
             </div>
-            <div className="space-y-2">
+            <div className="space-y-1.5 sm:space-y-2">
               <h3 className="font-serif text-base font-medium text-stone-900">
                 {isNl ? occasions.party_orders_title_nl : occasions.party_orders_title}
               </h3>
@@ -109,11 +109,11 @@ export function OrderingGuideSection() {
           </div>
 
           {/* Made to your liking */}
-          <div className="bg-[#FAF8F5] rounded-2xl border border-[#EAE6DF] p-7 flex gap-4 hover:border-stone-300 transition-colors shadow-2xs">
-            <div className="w-11 h-11 rounded-xl bg-white border border-[#EAE6DF] flex items-center justify-center shrink-0 shadow-2xs">
+          <div className="bg-[#FAF8F5] rounded-2xl border border-[#EAE6DF] p-5 sm:p-7 flex flex-col sm:flex-row items-start gap-3.5 sm:gap-4 hover:border-stone-300 transition-colors shadow-2xs">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white border border-[#EAE6DF] flex items-center justify-center shrink-0 shadow-2xs">
               <SlidersHorizontal className="w-5 h-5 text-[#1D3557]" />
             </div>
-            <div className="space-y-2">
+            <div className="space-y-1.5 sm:space-y-2">
               <h3 className="font-serif text-base font-medium text-stone-900">
                 {isNl ? occasions.customization_title_nl : occasions.customization_title}
               </h3>

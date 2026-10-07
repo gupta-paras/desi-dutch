@@ -89,33 +89,34 @@ export function FilterToolbar({
         </div>
 
         {/* Toggles and Reset */}
-        <div className="flex flex-wrap items-center gap-2 shrink-0">
+        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
           {/* Daily Specials Toggle */}
           <button
             type="button"
             onClick={() => onDailySpecialChange(!dailySpecialOnly)}
-            className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-medium transition-all duration-150 cursor-pointer border select-none ${
+            className={`inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-full text-xs font-medium transition-all duration-150 cursor-pointer border select-none ${
               dailySpecialOnly
                 ? 'bg-[#1A1917] text-white border-[#1A1917] shadow-2xs'
                 : 'bg-white text-stone-700 border-stone-200/90 hover:border-stone-400 hover:bg-[#FAF8F5]'
             }`}
           >
-            <Sparkles className={`w-3.5 h-3.5 ${dailySpecialOnly ? 'text-[#C07C27]' : 'text-[#C07C27]'}`} />
-            <span>{t('Daily Specials Only', 'Favorieten uit de keuken')}</span>
+            <Sparkles className="w-3.5 h-3.5 text-[#C07C27]" />
+            <span className="sm:hidden">{t('Specials', 'Favorieten')}</span>
+            <span className="hidden sm:inline">{t('Daily Specials Only', 'Favorieten uit de keuken')}</span>
           </button>
 
           {/* In Stock Only Toggle */}
           <button
             type="button"
             onClick={() => onInStockChange(!inStockOnly)}
-            className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-medium transition-all duration-150 cursor-pointer border select-none ${
+            className={`inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-full text-xs font-medium transition-all duration-150 cursor-pointer border select-none ${
               inStockOnly
                 ? 'bg-[#1D3557] text-white border-[#1D3557] shadow-2xs'
                 : 'bg-white text-stone-700 border-stone-200/90 hover:border-stone-400 hover:bg-[#FAF8F5]'
             }`}
           >
             <CheckCircle2 className={`w-3.5 h-3.5 ${inStockOnly ? 'text-white' : 'text-emerald-700'}`} />
-            <span>{t('In Stock Only', 'Op voorraad')}</span>
+            <span>{t('In Stock', 'Op voorraad')}</span>
           </button>
 
           {/* Coming Soon Toggle */}
@@ -123,7 +124,7 @@ export function FilterToolbar({
             <button
               type="button"
               onClick={() => onComingSoonChange(!comingSoonOnly)}
-              className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-medium transition-all duration-150 cursor-pointer border select-none ${
+              className={`inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-full text-xs font-medium transition-all duration-150 cursor-pointer border select-none ${
                 comingSoonOnly
                   ? 'bg-stone-800 text-white border-stone-800 shadow-2xs'
                   : 'bg-white text-stone-700 border-stone-200/90 hover:border-stone-400 hover:bg-[#FAF8F5]'
@@ -149,10 +150,10 @@ export function FilterToolbar({
         </div>
       </div>
 
-      {/* Category Filter Pills Row */}
-      <div className="flex items-center justify-between gap-4 pt-1 border-t border-stone-200/60">
-        <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
-          <span className="text-xs font-medium text-stone-400 mr-1 hidden sm:inline flex items-center gap-1">
+      {/* Category Filter Pills Row & Count */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pt-2 border-t border-stone-200/60">
+        <div className="min-w-0 flex-1 flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+          <span className="text-xs font-medium text-stone-400 mr-1 hidden sm:inline flex items-center gap-1 shrink-0">
             <SlidersHorizontal className="w-3 h-3" />
             {t('Category:', 'Categorie:')}
           </span>
@@ -164,7 +165,7 @@ export function FilterToolbar({
                 key={cat.id}
                 type="button"
                 onClick={() => onTagChange(cat.id)}
-                className={`whitespace-nowrap px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-150 cursor-pointer select-none ${
+                className={`whitespace-nowrap px-3 sm:px-3.5 py-1.5 rounded-full text-xs font-medium transition-all duration-150 cursor-pointer select-none shrink-0 ${
                   isActive
                     ? 'bg-[#1A1917] text-white shadow-2xs'
                     : 'bg-white/80 text-stone-600 border border-[#EAE6DF] hover:border-stone-400 hover:text-stone-900 hover:bg-[#FAF8F5]'
@@ -177,7 +178,7 @@ export function FilterToolbar({
         </div>
 
         {/* Counter indicator */}
-        <div className="text-xs text-stone-500 whitespace-nowrap shrink-0">
+        <div className="text-[11px] sm:text-xs text-stone-500 whitespace-nowrap shrink-0 self-end sm:self-auto">
           {t('Showing', 'Getoond')}{' '}
           <span className="font-semibold text-stone-900">{filteredCount}</span> {t('of', 'van')}{' '}
           {totalCount}

@@ -72,31 +72,29 @@ export function DishCard({ dish }: DishCardProps) {
         )}
 
         {/* Floating Badges */}
-        <div className="absolute inset-x-3 top-3 flex items-start justify-between gap-2 pointer-events-none">
+        <div className="absolute inset-x-2.5 top-2.5 flex flex-wrap items-start justify-between gap-1.5 pointer-events-none z-10">
           {/* Daily Special Ribbon */}
-          {dish.daily_special ? (
-            <div className="glass-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold text-[#8C5716] bg-[#FCF9F2]/95 border border-[#C07C27]/30 shadow-2xs">
-              <Sparkles className="w-3.5 h-3.5 text-[#C07C27] fill-[#C07C27]/40" />
-              <span>{t('Daily Special', 'Favoriet uit de keuken')}</span>
+          {dish.daily_special && (
+            <div className="glass-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-semibold text-[#8C5716] bg-[#FCF9F2]/95 border border-[#C07C27]/30 shadow-2xs shrink-0">
+              <Sparkles className="w-3.5 h-3.5 text-[#C07C27] fill-[#C07C27]/40 shrink-0" />
+              <span>{t('Daily Special', 'Favoriet')}</span>
             </div>
-          ) : (
-            <span />
           )}
 
           {/* Status Badge: Coming Soon / In Stock / Sold Out */}
           {isComingSoon ? (
-            <div className="glass-badge inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider text-stone-700 bg-white/95 border border-stone-200 shadow-2xs">
-              <Clock className="w-3 h-3 text-stone-500" />
+            <div className="glass-badge inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-stone-700 bg-white/95 border border-stone-200 shadow-2xs shrink-0 ml-auto">
+              <Clock className="w-3 h-3 text-stone-500 shrink-0" />
               <span>{t('Coming soon', 'Binnenkort')}</span>
             </div>
           ) : dish.is_available ? (
-            <div className="glass-badge inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider text-emerald-800 bg-white/95 border border-emerald-200/70 shadow-2xs">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
+            <div className="glass-badge inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-emerald-800 bg-white/95 border border-emerald-200/70 shadow-2xs shrink-0 ml-auto">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse shrink-0" />
               <span>{t('In Stock', 'Op voorraad')}</span>
             </div>
           ) : (
-            <div className="glass-badge inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider text-stone-600 bg-stone-100/95 border border-stone-300 shadow-2xs">
-              <Ban className="w-3 h-3 text-stone-500" />
+            <div className="glass-badge inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider text-stone-600 bg-stone-100/95 border border-stone-300 shadow-2xs shrink-0 ml-auto">
+              <Ban className="w-3 h-3 text-stone-500 shrink-0" />
               <span>{t('Sold out', 'Uitverkocht')}</span>
             </div>
           )}
@@ -113,7 +111,7 @@ export function DishCard({ dish }: DishCardProps) {
       </div>
 
       {/* Card Content */}
-      <div className="flex-1 p-5 flex flex-col justify-between">
+      <div className="flex-1 p-4 sm:p-5 flex flex-col justify-between">
         <div className="space-y-2.5">
           {/* Tags list */}
           <div className="flex flex-wrap gap-1.5">
@@ -146,7 +144,7 @@ export function DishCard({ dish }: DishCardProps) {
         </div>
 
         {/* Bottom Price & Add to Cart row */}
-        <div className="pt-4 mt-4 border-t border-[#EAE6DF] flex items-center justify-between gap-3">
+        <div className="pt-3.5 mt-3.5 border-t border-[#EAE6DF] flex items-center justify-between gap-2">
           {/* Price Styling */}
           <div className="flex flex-col">
             <span className="text-[9px] uppercase font-bold tracking-widest text-stone-400">
@@ -157,7 +155,7 @@ export function DishCard({ dish }: DishCardProps) {
                 {t('Coming soon', 'Binnenkort')}
               </span>
             ) : (
-              <span className="font-serif text-xl font-medium text-stone-900 tracking-tight">
+              <span className="font-serif text-lg sm:text-xl font-medium text-stone-900 tracking-tight">
                 €{dish.price.toFixed(2)}
               </span>
             )}

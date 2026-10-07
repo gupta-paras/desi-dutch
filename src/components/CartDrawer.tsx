@@ -56,10 +56,10 @@ export function CartDrawer() {
         onClick={() => setIsCartOpen(false)}
       />
 
-      <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
+      <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
         <div className="w-screen max-w-md bg-[#FAF9F6] shadow-2xl flex flex-col border-l border-stone-200">
           {/* Header */}
-          <div className="p-5 border-b border-stone-200 bg-white flex items-center justify-between">
+          <div className="p-4 sm:p-5 border-b border-stone-200 bg-white flex items-center justify-between">
             <div className="flex items-center gap-2.5">
               <div className="w-9 h-9 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-700">
                 <ShoppingBag className="w-5 h-5" />
@@ -91,7 +91,7 @@ export function CartDrawer() {
           </div>
 
           {/* Cart Items List */}
-          <div className="flex-1 overflow-y-auto p-5 space-y-4">
+          <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-3.5">
             {items.length === 0 ? (
               <div className="h-full flex flex-col items-center justify-center text-center p-6 space-y-4">
                 <div className="w-20 h-20 rounded-2xl bg-stone-100 flex items-center justify-center text-stone-300">
@@ -199,7 +199,7 @@ export function CartDrawer() {
 
           {/* Footer Checkout Summary */}
           {items.length > 0 && (
-            <div className="p-5 border-t border-stone-200 bg-white space-y-3.5">
+            <div className="p-4 sm:p-5 border-t border-stone-200 bg-white space-y-3.5">
               <div className="space-y-1.5 text-xs text-stone-600">
                 <div className="flex justify-between">
                   <span>{t('Food total', 'Totaal gerechten')}</span>

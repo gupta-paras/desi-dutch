@@ -44,17 +44,17 @@ export function HeroSection({ onExploreClick, onSpecialsClick }: HeroSectionProp
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Left Column: Headline and CTAs */}
-          <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
+          <div className="lg:col-span-7 space-y-5 sm:space-y-6 text-center lg:text-left">
             {/* Origin pill badge */}
-            <div className="inline-flex items-center gap-2.5 px-3 py-1 rounded-full bg-[#F4F1EB] border border-[#E8E4DC] text-stone-700 text-xs font-semibold tracking-wider uppercase shadow-2xs">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#C07C27]" />
-              <span>{eyebrow || `${restaurant.name.toUpperCase()} · INDIAN KITCHEN`}</span>
-              <span className="text-stone-300">|</span>
-              <span className="text-[11px] text-stone-500 font-medium tracking-widest lowercase">ams × del</span>
+            <div className="inline-flex flex-wrap items-center justify-center gap-1.5 sm:gap-2.5 px-3 py-1.5 rounded-full bg-[#F4F1EB] border border-[#E8E4DC] text-stone-700 text-[11px] sm:text-xs font-semibold tracking-wider uppercase shadow-2xs max-w-full">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C07C27] shrink-0" />
+              <span className="truncate">{eyebrow || `${restaurant.name.toUpperCase()} · INDIAN KITCHEN`}</span>
+              <span className="text-stone-300 hidden sm:inline">|</span>
+              <span className="text-[10px] sm:text-[11px] text-stone-500 font-medium tracking-widest lowercase hidden sm:inline">ams × del</span>
             </div>
 
             {/* Main Headline */}
-            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-[#1A1917] leading-[1.14]">
+            <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-[#1A1917] leading-[1.18] sm:leading-[1.14]">
               {title.split('.').map((part, index, array) => {
                 const trimmed = part.trim();
                 if (!trimmed) return null;
@@ -73,22 +73,22 @@ export function HeroSection({ onExploreClick, onSpecialsClick }: HeroSectionProp
             </h1>
 
             {/* Subtitle description */}
-            <p className="text-base sm:text-lg text-stone-600 max-w-2xl font-normal leading-relaxed">
+            <p className="text-sm sm:text-base lg:text-lg text-stone-600 max-w-2xl font-normal leading-relaxed mx-auto lg:mx-0">
               {subtitle}
             </p>
 
             {/* Call to Actions */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3.5 pt-2">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3 pt-2">
               <button
                 onClick={onExploreClick}
-                className="inline-flex items-center gap-2 bg-[#1A1917] hover:bg-[#282724] active:scale-[0.98] text-[#FAF8F5] font-medium text-xs tracking-wider uppercase px-6 py-3.5 rounded-full shadow-xs transition-all duration-200 cursor-pointer border border-stone-800"
+                className="inline-flex items-center justify-center gap-2 bg-[#1A1917] hover:bg-[#282724] active:scale-[0.98] text-[#FAF8F5] font-medium text-xs tracking-wider uppercase px-6 py-3.5 rounded-full shadow-xs transition-all duration-200 cursor-pointer border border-stone-800"
               >
                 <span>{ctaBtn || t('Explore the menu', 'Bekijk het menu')}</span>
                 <ArrowDown className="w-3.5 h-3.5 text-[#E29D38]" />
               </button>
               <button
                 onClick={onSpecialsClick}
-                className="inline-flex items-center gap-2 bg-white hover:bg-stone-50 text-stone-800 font-medium text-xs tracking-wider uppercase px-6 py-3.5 rounded-full border border-[#E8E4DC] hover:border-stone-400 shadow-2xs transition-all duration-200 cursor-pointer active:scale-[0.98]"
+                className="inline-flex items-center justify-center gap-2 bg-white hover:bg-stone-50 text-stone-800 font-medium text-xs tracking-wider uppercase px-6 py-3.5 rounded-full border border-[#E8E4DC] hover:border-stone-400 shadow-2xs transition-all duration-200 cursor-pointer active:scale-[0.98]"
               >
                 <Sparkles className="w-3.5 h-3.5 text-[#C07C27]" />
                 <span>{t('Daily Specials', 'Dagspecials')}</span>
@@ -96,7 +96,7 @@ export function HeroSection({ onExploreClick, onSpecialsClick }: HeroSectionProp
             </div>
 
             {/* Heritage Line */}
-            <div className="pt-2 text-[11px] font-medium tracking-widest uppercase text-stone-500 flex items-center justify-center lg:justify-start gap-2.5">
+            <div className="pt-2 text-[10px] sm:text-[11px] font-medium tracking-widest uppercase text-stone-500 flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-2.5">
               <span>Amsterdam Canal Heritage</span>
               <span className="text-stone-300">✦</span>
               <span>Authentic Delhi Spice</span>

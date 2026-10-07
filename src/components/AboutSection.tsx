@@ -34,18 +34,18 @@ export function AboutSection() {
           </div>
 
           {/* Story Card */}
-          <div className="bg-white rounded-3xl border border-[#EAE6DF] p-8 sm:p-12 shadow-2xs flex flex-col md:flex-row items-center gap-8 md:gap-12 relative overflow-hidden">
+          <div className="bg-white rounded-3xl border border-[#EAE6DF] p-5 sm:p-10 md:p-12 shadow-2xs flex flex-col md:flex-row items-center gap-6 sm:gap-8 md:gap-12 relative overflow-hidden">
             {/* Subtle background heritage emblem */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-radial from-[#C07C27]/5 to-transparent pointer-events-none rounded-full blur-2xl -mr-20 -mt-20" />
 
             {/* Portrait Framing */}
-            <div className="relative w-48 h-48 sm:w-56 sm:h-56 shrink-0 rounded-2xl overflow-hidden border border-[#EAE6DF] shadow-xs bg-stone-100">
+            <div className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 shrink-0 rounded-2xl overflow-hidden border border-[#EAE6DF] shadow-xs bg-stone-100">
               {!imageError && about.photo_url ? (
                 <Image
                   src={about.photo_url}
                   alt={about.name}
                   fill
-                  sizes="224px"
+                  sizes="(max-width: 640px) 160px, 224px"
                   className="object-cover"
                   onError={() => setImageError(true)}
                 />
@@ -55,7 +55,7 @@ export function AboutSection() {
                   <span className="text-xs font-serif">{about.name}</span>
                 </div>
               )}
-              <div className="absolute bottom-2.5 left-2.5 right-2.5 bg-[#1A1917]/90 backdrop-blur-xs text-white text-[11px] font-medium py-1 px-2.5 rounded-lg text-center tracking-wide">
+              <div className="absolute bottom-2 left-2 right-2 sm:bottom-2.5 sm:left-2.5 sm:right-2.5 bg-[#1A1917]/90 backdrop-blur-xs text-white text-[11px] font-medium py-1 px-2.5 rounded-lg text-center tracking-wide">
                 {about.name}
               </div>
             </div>
@@ -67,15 +67,15 @@ export function AboutSection() {
                 <span className="font-serif italic">{t('Founder & Chef —', 'Oprichtster & Chef —')}</span>
                 <span className="font-semibold text-stone-900">{about.name}</span>
               </div>
-              <p className="text-stone-700 text-base sm:text-lg leading-relaxed font-normal">
+              <p className="text-stone-700 text-sm sm:text-base lg:text-lg leading-relaxed font-normal">
                 {bio}
               </p>
-              <div className="pt-2 flex items-center justify-center md:justify-start gap-4 text-xs font-medium text-stone-500">
+              <div className="pt-2 flex flex-wrap items-center justify-center md:justify-start gap-x-3 gap-y-1.5 text-xs font-medium text-stone-500">
                 <span className="inline-flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
                   {t('Authentic Family Recipes', 'Authentieke familierecepten')}
                 </span>
-                <span className="text-stone-300">•</span>
+                <span className="text-stone-300 hidden sm:inline">•</span>
                 <span className="inline-flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#C07C27]" />
                   {t('Made Fresh Daily', 'Dagelijks vers bereid')}

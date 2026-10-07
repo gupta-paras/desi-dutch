@@ -109,7 +109,7 @@ export function CheckoutModal() {
       role="dialog"
       aria-modal="true"
     >
-      <div className="relative w-full max-w-lg bg-[#FAF9F6] rounded-3xl border border-stone-200 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+      <div className="relative w-full max-w-lg bg-[#FAF9F6] rounded-2xl sm:rounded-3xl border border-stone-200 shadow-2xl overflow-hidden max-h-[92vh] flex flex-col animate-in fade-in zoom-in-95 duration-200">
         {/* Modal Close Button */}
         <button
           onClick={() => {
@@ -119,7 +119,7 @@ export function CheckoutModal() {
               setIsCheckoutOpen(false);
             }
           }}
-          className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/80 hover:bg-stone-100 text-stone-500 hover:text-stone-800 transition-colors cursor-pointer"
+          className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 z-10 p-2 rounded-full bg-white/80 hover:bg-stone-100 text-stone-500 hover:text-stone-800 transition-colors cursor-pointer"
           aria-label={t('Close modal', 'Sluit venster')}
         >
           <X className="w-5 h-5" />
@@ -127,17 +127,17 @@ export function CheckoutModal() {
 
         {isSuccess ? (
           /* Confirmation Screen with WhatsApp Links */
-          <div className="p-6 sm:p-8 text-center space-y-6">
-            <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center shadow-inner">
-              <CheckCircle2 className="w-10 h-10" />
+          <div className="p-4 sm:p-8 text-center space-y-4 sm:space-y-6 overflow-y-auto">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center shadow-inner">
+              <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10" />
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-1.5 sm:space-y-2">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-900 border border-emerald-200 text-xs font-semibold">
                 <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
                 {t(`Order #${orderNumber} Generated`, `Bestelling #${orderNumber} Aangemaakt`)}
               </div>
-              <h2 className="text-2xl font-black text-stone-900">
+              <h2 className="text-xl sm:text-2xl font-black text-stone-900">
                 {t('Ready to Send on WhatsApp!', 'Klaar om te verzenden via WhatsApp!')}
               </h2>
               <p className="text-xs sm:text-sm text-stone-600 max-w-md mx-auto">
@@ -161,7 +161,7 @@ export function CheckoutModal() {
                 <ExternalLink className="w-4 h-4 ml-1 opacity-80" />
               </a>
 
-              <div className="flex items-center justify-between gap-2 px-1">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-1.5 sm:gap-2 px-1 text-center sm:text-left">
                 <span className="text-[11px] text-stone-500">
                   {t('Kitchen WhatsApp:', 'Keuken WhatsApp:')}{' '}
                   <strong className="text-stone-700">{config.restaurant.whatsapp_number}</strong>
@@ -211,9 +211,9 @@ export function CheckoutModal() {
           </div>
         ) : (
           /* Checkout Form */
-          <form onSubmit={handleSubmitOrder}>
-            <div className="p-6 border-b border-stone-200 bg-white">
-              <h2 className="text-xl font-bold text-stone-900">
+          <form onSubmit={handleSubmitOrder} className="flex flex-col max-h-[92vh]">
+            <div className="p-4 sm:p-6 border-b border-stone-200 bg-white">
+              <h2 className="text-lg sm:text-xl font-bold text-stone-900">
                 {t('Checkout & WhatsApp Transmission', 'Bestelling afronden via WhatsApp')}
               </h2>
               <p className="text-xs text-stone-500 mt-1">
@@ -224,7 +224,7 @@ export function CheckoutModal() {
               </p>
             </div>
 
-            <div className="p-6 space-y-4 max-h-[58vh] overflow-y-auto">
+            <div className="p-4 sm:p-6 space-y-3.5 sm:space-y-4 max-h-[55vh] overflow-y-auto">
               {/* WhatsApp Hotline Banner */}
               <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200/80 flex items-start gap-2.5">
                 <MessageCircle className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
@@ -307,10 +307,10 @@ export function CheckoutModal() {
             </div>
 
             {/* Footer Total & Place Order Button */}
-            <div className="p-6 border-t border-stone-200 bg-white space-y-3">
+            <div className="p-4 sm:p-6 border-t border-stone-200 bg-white space-y-3">
               <div className="flex justify-between items-center text-sm">
                 <span className="text-stone-600">{t('Total Due', 'Totaalbedrag')}</span>
-                <span className="font-serif text-2xl font-medium text-stone-900">
+                <span className="font-serif text-xl sm:text-2xl font-medium text-stone-900">
                   €{totalAmount.toFixed(2)}
                 </span>
               </div>
